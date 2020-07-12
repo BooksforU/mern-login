@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const config = require("./config/key");
 
 
+
 const mongoose = require("mongoose");
 const connect = mongoose.connect(config.mongoURI,
   {
@@ -31,18 +32,22 @@ app.use('/api/favorite', require('./routes/favorite'));
 //https://stackoverflow.com/questions/48914987/send-image-path-from-node-js-express-server-to-react-client
 app.use('/uploads', express.static('uploads'));
 
-// Serve static assets if in production
+// FOR PRODUCATUION
 if (process.env.NODE_ENV === "production") {
+  // Exprees will serve up production assets
+  app.use(express.static("../client/build"));
 
-  // Set static folder   
-  // All the javascript and css files will be read and served from this folder
-  app.use(express.static("client/build"));
-
-  // index.html for all page routes    html or routing and naviagtion
+  // Express serve up index.html file if it doesn't recognize route
+  const path = require("path");
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+    let url = path.join(__dirname, "../client/build", "index.html");
+    if (!url.startsWith("/app/"))
+      // since we're on local windows
+      url = url.substring(1);
+    res.sendFile(url);
   });
 }
+
 
 const port = process.env.PORT || 5000
 
