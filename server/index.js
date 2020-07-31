@@ -24,6 +24,11 @@ app.use(cookieParser());
 
 app.use('/api/users', require('./routes/users'));
 app.use('/api/favorite', require('./routes/favorite'));
+app.use('/api/exercise',require('./routes/exercise'))
+app.use('/api/story',require('./routes/story'))
+app.use('/api/story/comment',require('./routes/comment'))
+
+
 
 
 

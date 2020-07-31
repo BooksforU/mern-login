@@ -27,7 +27,8 @@ router.post('/favorited',(req,res)=>{
    
     Favorite.find({"movieId":req.body.movieId,"userFrom":req.body.userFrom})
     .exec((err,subscribe)=>{
-        if (err) return res.status(400).send(err)
+        if (err) return
+         res.status(400).send(err)
 
         let result = false
         if (subscribe.length !== 0){

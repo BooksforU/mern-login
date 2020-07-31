@@ -63,6 +63,12 @@ router.post("/login", (req, res) => {
     });
 });
 
+// all user 
+router.get('/users',async(req,res)=>{
+    let users = await User.find()
+    res.status(200).json(users)
+})
+
 router.get("/logout", auth, (req, res) => {
     console.log(auth)
     User.findOneAndUpdate({ _id: req.user._id }, { token: "", tokenExp: "" }, (err, doc) => {
