@@ -4,19 +4,19 @@ const path = require("path");
 const cors = require('cors')
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const config = require("./config/key");
-require('dotenv').config();
+const config = require('./config/key')
 
 
 
 const mongoose = require("mongoose");
-const connect = mongoose.connect(config.mongoURI,
+mongoose.connect(
+  "mongodb+srv://arvind:8fQtxZBGWf7z3Shw@cluster0-4o6cx.mongodb.net/test?retryWrites=true&w=majority",
   {
-    useNewUrlParser: true, useUnifiedTopology: true,
-    useCreateIndex: true, useFindAndModify: false
-  })
-  .then(() => console.log('MongoDB Connected...'))
-  .catch(err => console.log(err));
+    useNewUrlParser: true
+  }
+);
+
+
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
