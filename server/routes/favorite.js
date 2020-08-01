@@ -22,22 +22,22 @@ router.post("/favoriteNumber", (req, res) => {
 
 });
 
+router.post("/favorited", (req, res) => {
 
-router.post('/favorited',(req,res)=>{
-   
-    Favorite.find({"movieId":req.body.movieId,"userFrom":req.body.userFrom})
-    .exec((err,subscribe)=>{
-        if (err) return
-         res.status(400).send(err)
+    Favorite.find({ "movieId": req.body.movieId, "userFrom": req.body.userFrom })
+        .exec((err, subscribe) => {
+            if (err) return res.status(400).send(err)
 
-        let result = false
-        if (subscribe.length !== 0){
-            result = true
-        }
-        res.status(200).json({ success: true, subcribed: result })
+            let result = false;
+            if (subscribe.length !== 0) {
+                result = true
+            }
 
-    })
-})
+            res.status(200).json({ success: true, subcribed: result })
+        })
+
+});
+
 
 
 router.post('/addToFavorite',(req,res)=>{
