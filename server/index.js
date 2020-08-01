@@ -38,19 +38,16 @@ app.use('/api/story/comment',require('./routes/comment'))
 //https://stackoverflow.com/questions/48914987/send-image-path-from-node-js-express-server-to-react-client
 app.use('/uploads', express.static('uploads'));
 
-// FOR PRODUCATUION
+// Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
-  // Exprees will serve up production assets
-  app.use(express.static("../client/build"));
 
-  // Express serve up index.html file if it doesn't recognize route
-  const path = require("path");
+  // Set static folder   
+  // All the javascript and css files will be read and served from this folder
+  app.use(express.static("client/build"));
+
+  // index.html for all page routes    html or routing and naviagtion
   app.get("*", (req, res) => {
-    let url = path.join(__dirname, "../client/build", "index.html");
-    if (!url.startsWith("/app/"))
-      // since we're on local windows
-      url = url.substring(1);
-    res.sendFile(url);
+    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
   });
 }
 
